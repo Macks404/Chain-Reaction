@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField]
-    private Transform[] camPoints;
+    public static MapManager instance;
 
-    
+    private void Start() {
+        instance = this;
+    }
 }
