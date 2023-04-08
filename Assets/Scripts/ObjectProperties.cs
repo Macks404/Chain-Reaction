@@ -5,4 +5,5 @@ public class ObjectProperties : ScriptableObject{
     public string objectName = "Ball";
     public Sprite icon;
     public GameObject obj;
+    public int cost;
 }

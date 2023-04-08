@@ -95,12 +95,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 72
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 72
+  m_fontSizeMax: 100
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -294,6 +294,7 @@ MonoBehaviour:
   iconPrefab: {fileID: 4856626123604613535, guid: b143d68a244325f4d841f66150423dc5,
     type: 3}
   iconParent: {fileID: 1459090317361939976}
+  pointText: {fileID: 7994730801880898511}
 --- !u!1 &1815741758162881136
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +377,7 @@ GameObject:
   - component: {fileID: 1994222106160879583}
   m_Layer: 5
   m_Name: Scroll View
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -400,7 +401,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 700}
+  m_SizeDelta: {x: 200, y: 700}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &7176520217909102268
 CanvasRenderer:
@@ -423,7 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.392}
+  m_Color: {r: 0, g: 0.6117647, b: 0.42745098, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -703,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Objective: Activate Archery thing'
+  m_text: 'Objective: Free Sherlock Bones'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 81d18c90eff1fb243b807e545b470fbc, type: 2}
   m_sharedMaterial: {fileID: 7434675416895107976, guid: 81d18c90eff1fb243b807e545b470fbc,

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerSelectionManager : MonoBehaviour
 {
@@ -13,14 +14,31 @@ public class PlayerSelectionManager : MonoBehaviour
         tileSelectionEffect = GetComponent<TileSelectionEffect>();
     }
     private void Update() {
-        GetHoveredObject();
-        if(Input.GetMouseButtonDown(0))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if(selectedGameobj != null)
+            //if not over UI
+            GetHoveredObject();
+            if(Input.GetMouseButtonDown(0))
             {
-                tileSelectionEffect.ResetEffect(selectedGameobj);
+                if(selectedGameobj != null)
+                {
+                    if(selectedGameobj.CompareTag("tile"))
+                    {
+                        tileSelectionEffect.ResetEffect(selectedGameobj);
+                    }
+                }
+                selectedGameobj = hoveredGameobj;
             }
-            selectedGameobj = hoveredGameobj;
+
+            if(Input.GetMouseButtonDown(1))
+            {
+                if(hoveredGameobj) {
+                    if(hoveredGameobj.GetComponent<ItemObject>())
+                    {
+                        hoveredGameobj.GetComponent<ItemObject>().DestroySelf();
+                    }
+                }
+            }
         }
         if(selectedGameobj != null)
         {
@@ -36,8 +54,6 @@ public class PlayerSelectionManager : MonoBehaviour
                 tileSelectionEffect.DoHoverEffect(hoveredGameobj);
             }
         }
-
-
     }
 
     private void GetHoveredObject()
@@ -48,29 +64,34 @@ public class PlayerSelectionManager : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            if(hit.collider)
-                if(hit.collider.gameObject.CompareTag("tile")){
+            if(hit.collider){
+                if(hit.collider.gameObject.CompareTag("tile") || hit.collider.gameObject.GetComponent<ItemObject>()){
                     if(hoveredGameobj != null){
-                        tileSelectionEffect.ResetEffect(hoveredGameobj);
+                        if(hoveredGameobj.CompareTag("tile"))
+                        {
+                            tileSelectionEffect.ResetEffect(hoveredGameobj);
+                        }
                     }
                     hoveredGameobj=hit.collider.gameObject;
                 }
                 else{
-                    if(hoveredGameobj != null)
-                        tileSelectionEffect.ResetEffect(hoveredGameobj);
-                    hoveredGameobj=null;
+                    SetHoverToNull(hit);
                 }
-                    
+            }
             else {
-                if(hoveredGameobj != null)
-                    tileSelectionEffect.ResetEffect(hoveredGameobj);
-                hoveredGameobj=null;
+                SetHoverToNull(hit);
             }
         }
         else {
-            if(hoveredGameobj != null)
-                tileSelectionEffect.ResetEffect(hoveredGameobj);
-            hoveredGameobj = null;
+            SetHoverToNull(hit);
         }
+    }
+
+    private void SetHoverToNull(RaycastHit hit)
+    {
+        if(hoveredGameobj != null)
+            if(hoveredGameobj.CompareTag("tile"))
+                tileSelectionEffect.ResetEffect(hoveredGameobj);
+        hoveredGameobj=null;
     }
 }
