@@ -6,9 +6,11 @@ public class ItemObject : MonoBehaviour
     public ObjectProperties objectProperties;
     public LayerMask itemActivateLayer;
     public GameObject hitbox;
-    public List<Vector3> activationDirections;
+    public List<Vector3> activationDirections = new List<Vector3>();
 
     public bool isActivated;
+
+    public GameObject cube;
 
     public struct Activation
     {
@@ -19,13 +21,10 @@ public class ItemObject : MonoBehaviour
     public Activation activation;
 
     private void Start() {
-        activationDirections = new List<Vector3>();
         hitbox.transform.position = MapManager.instance.colliderYVal.position;
         hitbox.transform.Translate(transform.position.x-objectProperties.xDisplace,0,transform.position.z-objectProperties.zDisplace);
-        for(int i = 0; i < objectProperties.activationDirections.Length; i++)
-        {
-            activationDirections.Add(objectProperties.activationDirections[i]);
-        }
+
+        activationDirections.AddRange(objectProperties.activationDirections);
     }
 
     public void DestroySelf()
@@ -36,29 +35,66 @@ public class ItemObject : MonoBehaviour
 
     public void ActivateSurroundings()
     {
-        for(int i = 0; i < activationDirections.ToArray().Length; i++)
+        if(!GetComponent<StartingForce>())
         {
-            RaycastHit hit;
-
-            Vector3 origin = hitbox.transform.position;
-
-            Debug.Log(this.gameObject+ " "+activationDirections[i]);
-
-            Debug.DrawRay(origin,activationDirections[i],Color.red);
-
-            if(Physics.Raycast(origin,activationDirections[i], out hit, 2))
+            for(int i = 0; i < activationDirections.Count; i++)
             {
-                if(hit.collider.GetComponentInParent<ItemObject>())
+                RaycastHit hit;
+
+                Vector3 origin = hitbox.transform.position;
+                Debug.Log(hitbox.transform.position);
+
+                Debug.DrawRay(origin,activationDirections[i]*Mathf.Infinity,Color.red,100);
+                Debug.Log("Origin: "+origin+" direction: "+activationDirections[i]);
+
+                if(Physics.Raycast(origin,activationDirections[i], out hit, 2))
                 {
-                    hit.collider.GetComponentInParent<ItemObject>().isActivated = true;
-                    hit.collider.GetComponentInParent<ItemObject>().activation.isActivated = true;
-                    hit.collider.GetComponentInParent<ItemObject>().activation.directionFrom = activationDirections[i];
-                }
-                if(hit.collider.GetComponentInParent<Spike>())
-                {
-                    if(GetComponent<Bomb>())
+                    Debug.Log("3"+this.gameObject);
+                    if(hit.collider.GetComponentInParent<ItemObject>())
                     {
-                        Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
+                        Debug.Log("4"+this.gameObject);
+                        hit.collider.GetComponentInParent<ItemObject>().isActivated = true;
+                        hit.collider.GetComponentInParent<ItemObject>().activation.isActivated = true;
+                        hit.collider.GetComponentInParent<ItemObject>().activation.directionFrom = activationDirections[i];
+                    }
+                    if(hit.collider.GetComponentInParent<Spike>())
+                    {
+                        if(GetComponent<Bomb>())
+                        {
+                            Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            for(int i = 0; i < objectProperties.activationDirections.Length; i++)
+            {
+                RaycastHit hit;
+
+                Vector3 origin = new Vector3(-8,hitbox.transform.position.y,6);
+                Debug.Log(hitbox.transform.position);
+
+                Debug.DrawRay(origin,objectProperties.activationDirections[i]*Mathf.Infinity,Color.red,100);
+                Debug.Log("Origin: "+origin+" direction: "+objectProperties.activationDirections[i]);
+
+                if(Physics.Raycast(origin,objectProperties.activationDirections[i], out hit, 2))
+                {
+                    Debug.Log("3"+this.gameObject);
+                    if(hit.collider.GetComponentInParent<ItemObject>())
+                    {
+                        Debug.Log("4"+this.gameObject);
+                        hit.collider.GetComponentInParent<ItemObject>().isActivated = true;
+                        hit.collider.GetComponentInParent<ItemObject>().activation.isActivated = true;
+                        hit.collider.GetComponentInParent<ItemObject>().activation.directionFrom = objectProperties.activationDirections[i];
+                    }
+                    if(hit.collider.GetComponentInParent<Spike>())
+                    {
+                        if(GetComponent<Bomb>())
+                        {
+                            Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
+                        }
                     }
                 }
             }

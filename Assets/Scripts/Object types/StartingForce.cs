@@ -3,14 +3,18 @@ using UnityEngine;
 public class StartingForce : MonoBehaviour
 {
     ItemObject itemObject;
+    GameObject hitbox;
 
     public void StartGame()
     {
         itemObject = GetComponent<ItemObject>();
-        
-        itemObject.activationDirections.Add(transform.forward);
-        itemObject.ActivateSurroundings();
 
-        DestroyImmediate(this.gameObject);
+        Invoke("DOIT",0.5f);
+    }
+
+    private void DOIT()
+    {
+        Debug.Log("Doing it!");
+        itemObject.ActivateSurroundings();
     }
 }
