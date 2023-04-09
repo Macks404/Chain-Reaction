@@ -37,6 +37,10 @@ public class PlayerSelectionManager : MonoBehaviour
                     {
                         hoveredGameobj.GetComponent<ItemObject>().DestroySelf();
                     }
+                    if(hoveredGameobj.GetComponentInParent<ItemObject>())
+                    {
+                        hoveredGameobj.GetComponentInParent<ItemObject>().DestroySelf();
+                    }
                 }
             }
         }
@@ -65,7 +69,7 @@ public class PlayerSelectionManager : MonoBehaviour
         if(Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             if(hit.collider){
-                if(hit.collider.gameObject.CompareTag("tile") || hit.collider.gameObject.GetComponent<ItemObject>()){
+                if(hit.collider.gameObject.CompareTag("tile") || hit.collider.gameObject.GetComponent<ItemObject>() || hit.collider.gameObject.GetComponentInParent<ItemObject>()){
                     if(hoveredGameobj != null){
                         if(hoveredGameobj.CompareTag("tile"))
                         {

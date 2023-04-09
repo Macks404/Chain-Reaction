@@ -6,6 +6,7 @@ namespace VoxelDestruction
     {
         public float collisionScale = 1;
         public bool onlyDetectRb;
+
         
         private void OnCollisionEnter(Collision collision)
         {

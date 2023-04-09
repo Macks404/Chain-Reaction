@@ -552,12 +552,12 @@ namespace VoxelDestruction
             destructionCount++;
             
             //Sound
-            if (destructionSS.collisionClip != null && destructionSS.collisionClip.Length > 0)
-            {
-                string clip = destructionSS
-                    .collisionClip[Random.Range(0, destructionSS.collisionClip.Length)];
-                SoundManager.instance.Play(clip, "Game", true, point, true, Mathf.Clamp(relativeVel / destructionSS.soundVolumeScale, 0.1f, 2f));
-            }
+            // if (destructionSS.collisionClip != null && destructionSS.collisionClip.Length > 0)
+            // {
+            //     string clip = destructionSS
+            //         .collisionClip[Random.Range(0, destructionSS.collisionClip.Length)];
+            //     SoundManager.instance.Play(clip, "Game", true, point, true, Mathf.Clamp(relativeVel / destructionSS.soundVolumeScale, 0.1f, 2f));
+            // }
 
             if (destructionType == DestructionType.PassiveVoxelRemoval || 
                 destructionType == DestructionType.ActiveVoxelRemoval)
