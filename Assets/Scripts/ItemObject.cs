@@ -19,16 +19,13 @@ public class ItemObject : MonoBehaviour
     public Activation activation;
 
     private void Start() {
+        activationDirections = new List<Vector3>();
         hitbox.transform.position = MapManager.instance.colliderYVal.position;
         hitbox.transform.Translate(transform.position.x-objectProperties.xDisplace,0,transform.position.z-objectProperties.zDisplace);
         for(int i = 0; i < objectProperties.activationDirections.Length; i++)
         {
             activationDirections.Add(objectProperties.activationDirections[i]);
         }
-    }
-
-    private void Update() {
-        ActivateSurroundings();
     }
 
     public void DestroySelf()

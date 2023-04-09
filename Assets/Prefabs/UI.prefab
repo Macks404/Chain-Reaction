@@ -894,7 +894,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7189573442956249641}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2513920962482847405, guid: a62e76caed3968248a6abf3fa39ca6aa,
+          type: 3}
+        m_TargetAssemblyTypeName: StartingForce, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8492485081887555527
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class MapManager : MonoBehaviour
     public int points = 30;
     public Transform colliderYVal;
 
-    private void Start() {
+    private void Awake() {
         instance = this;
     }
 }
