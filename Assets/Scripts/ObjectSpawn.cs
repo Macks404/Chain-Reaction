@@ -12,6 +12,7 @@ public class ObjectSpawn : MonoBehaviour
                 instance.transform.Translate(Vector3.up * instance.GetComponent<BoxCollider>().size.y*1.5f);
                 MapManager.instance.points -= objProps.cost;
                 instance.GetComponent<ItemObject>().objectProperties = objProps;
+                GetComponent<PlayerSelectionManager>().selectedGameobj = null;
             }
         }
     }

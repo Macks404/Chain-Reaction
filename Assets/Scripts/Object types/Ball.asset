@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ball
   m_EditorClassIdentifier: 
   objectName: Ball
-  icon: {fileID: 21300000, guid: bab16b9cc2bb32f4bb7d4d974da4477a, type: 3}
+  icon: {fileID: 21300000, guid: b415b52d692d302429f485492bf08757, type: 3}
   obj: {fileID: 6563804315752907978, guid: 941c445883912924699d2e673aaa3d4c, type: 3}
-  cost: 2
+  cost: 4
