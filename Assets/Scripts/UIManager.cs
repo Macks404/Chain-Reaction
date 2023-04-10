@@ -24,6 +24,6 @@ public class UIManager : MonoBehaviour
     }
 
     private void Update() {
-        pointText.text = $"{MapManager.instance.points}";
+        pointText.text = $"{MapManager.instance.currentPoints}";
     }
 }

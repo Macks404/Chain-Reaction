@@ -243,3 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06d321a54ac53f4b98f848a79092655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorMessage: {fileID: 0}
+  clip: {fileID: 8300000, guid: 96052f164dbfdc04c87e3caf0d17f3cb, type: 3}
+  source: {fileID: 0}

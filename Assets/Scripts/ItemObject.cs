@@ -7,10 +7,15 @@ public class ItemObject : MonoBehaviour
     public LayerMask itemActivateLayer;
     public GameObject hitbox;
     public List<Vector3> activationDirections = new List<Vector3>();
+    public GameObject corrospondingTile;
+    public Transform originalPos;
 
     public bool isActivated;
 
     public GameObject cube;
+
+    [SerializeField]
+    AudioClip placeSfx;
 
     public struct Activation
     {
@@ -23,13 +28,17 @@ public class ItemObject : MonoBehaviour
     private void Start() {
         hitbox.transform.position = MapManager.instance.colliderYVal.position;
         hitbox.transform.Translate(transform.position.x-objectProperties.xDisplace,0,transform.position.z-objectProperties.zDisplace);
+        originalPos = transform;
 
         activationDirections.AddRange(objectProperties.activationDirections);
     }
 
     public void DestroySelf()
     {
-        MapManager.instance.points += GetComponent<ItemObject>().objectProperties.cost;
+        MapManager.instance.currentPoints += GetComponent<ItemObject>().objectProperties.cost;
+        MapManager.instance.takenTiles.Remove(corrospondingTile);
+        MapManager.instance.objectLayout.Remove(this.gameObject);
+        FindObjectOfType<AudioSource>().PlayOneShot(placeSfx);
         Destroy(this.gameObject);
     }
 
@@ -45,7 +54,13 @@ public class ItemObject : MonoBehaviour
                 Debug.Log(hitbox.transform.position);
 
                 Debug.DrawRay(origin,activationDirections[i]*Mathf.Infinity,Color.red,100);
-                Debug.Log("Origin: "+origin+" direction: "+activationDirections[i]);
+
+                if(GetComponent<Spike>())
+                {
+                    Debug.Log("Spike active");
+                    Instantiate(cube,origin,Quaternion.identity);
+                }
+                
 
                 if(Physics.Raycast(origin,activationDirections[i], out hit, 2))
                 {
@@ -61,6 +76,7 @@ public class ItemObject : MonoBehaviour
                     {
                         if(GetComponent<Bomb>())
                         {
+                            hit.collider.GetComponentInParent<Spike>().SpikeActivated();
                             Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
                         }
                     }
@@ -93,6 +109,7 @@ public class ItemObject : MonoBehaviour
                     {
                         if(GetComponent<Bomb>())
                         {
+                            
                             Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
                         }
                     }

@@ -137,7 +137,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitbox: {fileID: 6213343128833958349}
-  isActive: 0
+  activationDirections: []
+  corrospondingTile: {fileID: 0}
+  originalPos: {fileID: 0}
+  isActivated: 0
+  cube: {fileID: 0}
+  placeSfx: {fileID: 8300000, guid: 96052f164dbfdc04c87e3caf0d17f3cb, type: 3}
 --- !u!114 &-4763534521193920248
 MonoBehaviour:
   m_ObjectHideFlags: 0

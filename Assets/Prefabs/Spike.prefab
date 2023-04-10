@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2776866515685742472}
   - component: {fileID: 1235871923669243949}
   - component: {fileID: -410913002452614832}
+  - component: {fileID: -5298309056019699883}
   - component: {fileID: 3945792908497513703}
   - component: {fileID: 3461341964147490286}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,6 +58,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitbox: {fileID: 8771088674288862030}
+--- !u!114 &-5298309056019699883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297402174464609586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b02887b7dc4aba44f8b021a1c3f9e94d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectProperties: {fileID: 11400000, guid: 296979a06b4eedc4f83f9ce43898f859, type: 2}
+  itemActivateLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  hitbox: {fileID: 8771088674288862030}
+  activationDirections: []
+  corrospondingTile: {fileID: 0}
+  originalPos: {fileID: 0}
+  isActivated: 0
+  cube: {fileID: 4533059836290823891, guid: 9af9c5a78d2db1345a2e8e667a8ec5a2, type: 3}
 --- !u!23 &3945792908497513703
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -124,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8908958482447579240}
   - component: {fileID: 3054545188856513870}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

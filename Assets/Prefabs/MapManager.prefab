@@ -149,7 +149,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385a8ca264e93f34a927d61b21921496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 30
+  startPoints: 50
+  currentPoints: 0
+  colliderYVal: {fileID: 0}
+  takenTiles: []
+  objectLayout: []
+  gameRunning: 0
+  uiToHide:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &6853327657980773793
 GameObject:
   m_ObjectHideFlags: 0

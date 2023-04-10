@@ -37,7 +37,7 @@ public class PlayerSelectionManager : MonoBehaviour
                     {
                         hoveredGameobj.GetComponent<ItemObject>().DestroySelf();
                     }
-                    if(hoveredGameobj.GetComponentInParent<ItemObject>())
+                    else if(hoveredGameobj.GetComponentInParent<ItemObject>())
                     {
                         hoveredGameobj.GetComponentInParent<ItemObject>().DestroySelf();
                     }

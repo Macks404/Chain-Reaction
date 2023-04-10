@@ -10,6 +10,8 @@ public class StartingForce : MonoBehaviour
         itemObject = GetComponent<ItemObject>();
 
         Invoke("DOIT",0.5f);
+        
+        MapManager.instance.StartGame();
     }
 
     private void DOIT()

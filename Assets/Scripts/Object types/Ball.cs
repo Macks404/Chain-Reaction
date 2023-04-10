@@ -34,7 +34,6 @@ public class Ball : MonoBehaviour
         {
             hasMoved = true;
             itemObject.activationDirections.Add(itemObject.activation.directionFrom);
-            Debug.Log("Ball finished moving: "+itemObject.activation.directionFrom);
             itemObject.ActivateSurroundings();
         }
         Vector3 moveDir = itemObject.activation.directionFrom;
