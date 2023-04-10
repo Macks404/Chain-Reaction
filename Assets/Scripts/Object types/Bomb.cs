@@ -13,6 +13,11 @@ public class Bomb : MonoBehaviour
     public TextMeshProUGUI countdownText;
 
     [SerializeField]
+    AudioClip explosionSFX;
+    [SerializeField]
+    AudioClip countdownSfx;
+
+    [SerializeField]
     private GameObject particle;
 
     private GameObject particleInstance;
@@ -26,6 +31,7 @@ public class Bomb : MonoBehaviour
         current = countdown;
     }
     
+    int temp;
 
     private void Update() {
         if(countdownText != null)
@@ -47,6 +53,11 @@ public class Bomb : MonoBehaviour
             {
                 current -= Time.deltaTime;
                 countdownText.text = $"{(int)current+1}";
+                if(temp != (int)current)
+                {
+                    FindObjectOfType<AudioSource>().PlayOneShot(countdownSfx);
+                }
+                temp = (int)current;
             }
         }
     }
@@ -54,6 +65,7 @@ public class Bomb : MonoBehaviour
     VoxelFragment[] fragments;
 
     public void Explode() {
+        FindObjectOfType<AudioSource>().PlayOneShot(explosionSFX);
         itemObject.ActivateSurroundings();
         Destroy(countdownText.gameObject);
         Vector3 origin = new Vector3(transform.position.x-itemObject.objectProperties.xDisplace,transform.position.y+itemObject.objectProperties.yDisplace/1.5f,transform.position.z - itemObject.objectProperties.zDisplace);
@@ -86,7 +98,6 @@ public class Bomb : MonoBehaviour
     void DestroyAll()
     {
         fragments = FindObjectsOfType<VoxelFragment>();
-        Debug.Log(fragments.Length);
         for(int i = 0; i < fragments.Length; i++)
         {
             Destroy(fragments[i].gameObject);

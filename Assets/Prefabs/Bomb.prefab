@@ -160,6 +160,8 @@ MonoBehaviour:
   overrideMax: 100
   countdown: 3
   countdownText: {fileID: 7446553122786833976}
+  explosionSFX: {fileID: 8300000, guid: 6090ebc8b40f9364aa97deccb56e01d9, type: 3}
+  countdownSfx: {fileID: 8300000, guid: 7ae4b3969a1019842a87cb248547b5d9, type: 3}
   particle: {fileID: 1667154588993666476, guid: 9907e025bfe528540aa8875a9b9e791f,
     type: 3}
   isExploded: 0

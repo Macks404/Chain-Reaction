@@ -32,7 +32,7 @@ public class PlayerSelectionManager : MonoBehaviour
 
             if(Input.GetMouseButtonDown(1))
             {
-                if(hoveredGameobj) {
+                if(hoveredGameobj && !MapManager.instance.gameRunning) {
                     if(hoveredGameobj.GetComponent<ItemObject>())
                     {
                         hoveredGameobj.GetComponent<ItemObject>().DestroySelf();

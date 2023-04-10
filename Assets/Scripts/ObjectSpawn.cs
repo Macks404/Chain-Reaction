@@ -12,6 +12,9 @@ public class ObjectSpawn : MonoBehaviour
     [SerializeField]
     AudioSource source;
 
+    [SerializeField]
+    GameObject trampolineObj;
+
     public void SpawnObject(ObjectProperties objProps)
     {
         if(GetComponent<PlayerSelectionManager>().selectedGameobj != null)
@@ -20,27 +23,40 @@ public class ObjectSpawn : MonoBehaviour
             {
                 if(!MapManager.instance.takenTiles.Contains(GetComponent<PlayerSelectionManager>().selectedGameobj) && !MapManager.instance.gameRunning)
                 {
-                    if(MapManager.instance.currentPoints - objProps.cost > 0)
+                    if(MapManager.instance.currentPoints - objProps.cost >= 0)
                     {
-                        GameObject instance = Instantiate(objProps.obj,GetComponent<PlayerSelectionManager>().selectedGameobj.transform.position,Quaternion.identity);
-                        source.PlayOneShot(clip);
-                        MapManager.instance.takenTiles.Add(GetComponent<PlayerSelectionManager>().selectedGameobj);
-                        MapManager.instance.objectLayout.Add(instance);
-                        instance.GetComponent<ItemObject>().corrospondingTile = GetComponent<PlayerSelectionManager>().selectedGameobj;
-
-                        if(instance.GetComponent<BoxCollider>())
+                        if(objProps.obj == trampolineObj && MapManager.instance.trampolineCount > 0)
                         {
-                            instance.transform.Translate(Vector3.up * instance.GetComponent<BoxCollider>().size.y*1.5f);
+                            FindObjectOfType<ErrorText>().GetComponent<TextMeshProUGUI>().text = "Cant place more than one trampoline!";
+                            MapManager.instance.ResetErrorText();
                         }
                         else
                         {
-                            instance.transform.Translate(new Vector3(instance.GetComponent<ItemObject>().objectProperties.xDisplace, 
-                            instance.GetComponent<ItemObject>().objectProperties.yDisplace,
-                            instance.GetComponent<ItemObject>().objectProperties.zDisplace));
+                            if(objProps.obj == trampolineObj)
+                            {
+                                MapManager.instance.trampolineCount = 1;
+                            }
+                            GameObject instance = Instantiate(objProps.obj,GetComponent<PlayerSelectionManager>().selectedGameobj.transform.position,Quaternion.identity);
+                            source.PlayOneShot(clip);
+                            MapManager.instance.takenTiles.Add(GetComponent<PlayerSelectionManager>().selectedGameobj);
+                            MapManager.instance.objectLayout.Add(instance);
+                            instance.GetComponent<ItemObject>().corrospondingTile = GetComponent<PlayerSelectionManager>().selectedGameobj;
+
+                            if(instance.GetComponent<BoxCollider>())
+                            {
+                                instance.transform.Translate(Vector3.up * instance.GetComponent<BoxCollider>().size.y*1.5f);
+                            }
+                            else
+                            {
+                                instance.transform.Translate(new Vector3(instance.GetComponent<ItemObject>().objectProperties.xDisplace, 
+                                instance.GetComponent<ItemObject>().objectProperties.yDisplace,
+                                instance.GetComponent<ItemObject>().objectProperties.zDisplace));
+                            }
+                            MapManager.instance.currentPoints -= objProps.cost;
+                            instance.GetComponent<ItemObject>().objectProperties = objProps;
+                            GetComponent<PlayerSelectionManager>().selectedGameobj = null;
                         }
-                        MapManager.instance.currentPoints -= objProps.cost;
-                        instance.GetComponent<ItemObject>().objectProperties = objProps;
-                        GetComponent<PlayerSelectionManager>().selectedGameobj = null;
+                        
                     }
                     else
                     {

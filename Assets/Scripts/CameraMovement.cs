@@ -4,41 +4,53 @@ using Cinemachine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
-    private CinemachineVirtualCamera[] virtualCameras;
-    private int mainVCamIndex;
-    private int secondaryVCamIndex;
+    private CinemachineVirtualCamera[] cameras;
 
-    private void Start() {
-        virtualCameras = FindObjectsOfType<CinemachineVirtualCamera>();
-        int highestIndex = 0;
-        for(int i = 0; i < virtualCameras.Length; i++)
+    private CinemachineVirtualCamera temp;
+    
+    int currentCameraIndex=0;
+    void Start()
+    {
+        cameras=FindObjectsOfType<CinemachineVirtualCamera>();
+
+        // Ensure that the cameras array is not empty
+        if (cameras.Length == 0)
         {
-            if(virtualCameras[i].m_Priority > virtualCameras[highestIndex].m_Priority)
-            {
-                highestIndex = i;
-            }
+            Debug.LogWarning("No cameras have been assigned to the CameraCycle script.");
+            return;
         }
-        mainVCamIndex = highestIndex;
-        if(highestIndex == 1)
-        {
-            secondaryVCamIndex = 0;
-        }
-        else
-        {
-            secondaryVCamIndex = 1;
-        }
+
+        // Sort the cameras array by their m_Priority value
+        System.Array.Sort(cameras, (a, b) => a.m_Priority.CompareTo(b.m_Priority));
+
+        // Set the first camera in the array as active
+        cameras[currentCameraIndex].Priority = 10;
     }
 
-    private void Update() {
-        if(Input.GetKeyDown("d"))
+    void Update()
+    {
+        // Check for user input to cycle through cameras
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            virtualCameras[mainVCamIndex].Priority = 1;
-            virtualCameras[secondaryVCamIndex].Priority = 2;
+            // Decrease the priority of the current camera
+            cameras[currentCameraIndex].Priority = 0;
+
+            // Move to the previous camera in the array
+            currentCameraIndex = (currentCameraIndex + cameras.Length - 1) % cameras.Length;
+
+            // Increase the priority of the new current camera
+            cameras[currentCameraIndex].Priority = 10;
         }
-        if(Input.GetKeyDown("a"))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
-            virtualCameras[mainVCamIndex].Priority = 2;
-            virtualCameras[secondaryVCamIndex].Priority = 1;
+            // Decrease the priority of the current camera
+            cameras[currentCameraIndex].Priority = 0;
+
+            // Move to the next camera in the array
+            currentCameraIndex = (currentCameraIndex + 1) % cameras.Length;
+
+            // Increase the priority of the new current camera
+            cameras[currentCameraIndex].Priority = 10;
         }
     }
 }

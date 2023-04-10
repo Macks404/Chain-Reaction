@@ -26,8 +26,12 @@ public class ItemObject : MonoBehaviour
     public Activation activation;
 
     private void Start() {
-        hitbox.transform.position = MapManager.instance.colliderYVal.position;
-        hitbox.transform.Translate(transform.position.x-objectProperties.xDisplace,0,transform.position.z-objectProperties.zDisplace);
+        if(hitbox)
+        {   
+            hitbox.transform.position = MapManager.instance.colliderYVal.position;
+            hitbox.transform.Translate(transform.position.x-objectProperties.xDisplace,0,transform.position.z-objectProperties.zDisplace);
+        }
+        
         originalPos = transform;
 
         activationDirections.AddRange(objectProperties.activationDirections);
@@ -35,6 +39,10 @@ public class ItemObject : MonoBehaviour
 
     public void DestroySelf()
     {
+        if(GetComponent<Trampoline>())
+        {
+            MapManager.instance.trampolineCount = 0;
+        }
         MapManager.instance.currentPoints += GetComponent<ItemObject>().objectProperties.cost;
         MapManager.instance.takenTiles.Remove(corrospondingTile);
         MapManager.instance.objectLayout.Remove(this.gameObject);
@@ -51,23 +59,12 @@ public class ItemObject : MonoBehaviour
                 RaycastHit hit;
 
                 Vector3 origin = hitbox.transform.position;
-                Debug.Log(hitbox.transform.position);
-
-                Debug.DrawRay(origin,activationDirections[i]*Mathf.Infinity,Color.red,100);
-
-                if(GetComponent<Spike>())
-                {
-                    Debug.Log("Spike active");
-                    Instantiate(cube,origin,Quaternion.identity);
-                }
-                
+                Debug.DrawRay(origin,activationDirections[i]*Mathf.Infinity,Color.red,100);                
 
                 if(Physics.Raycast(origin,activationDirections[i], out hit, 2))
                 {
-                    Debug.Log("3"+this.gameObject);
                     if(hit.collider.GetComponentInParent<ItemObject>())
                     {
-                        Debug.Log("4"+this.gameObject);
                         hit.collider.GetComponentInParent<ItemObject>().isActivated = true;
                         hit.collider.GetComponentInParent<ItemObject>().activation.isActivated = true;
                         hit.collider.GetComponentInParent<ItemObject>().activation.directionFrom = activationDirections[i];
@@ -80,10 +77,14 @@ public class ItemObject : MonoBehaviour
                             Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
                         }
                     }
+                    if(hit.collider.GetComponentInParent<Objective>())
+                    {
+                        MapManager.instance.LevelFinished();
+                    }
                 }
             }
         }
-        else
+        else if(GetComponent<StartingForce>())
         {
             for(int i = 0; i < objectProperties.activationDirections.Length; i++)
             {
@@ -93,7 +94,6 @@ public class ItemObject : MonoBehaviour
                 Debug.Log(hitbox.transform.position);
 
                 Debug.DrawRay(origin,objectProperties.activationDirections[i]*Mathf.Infinity,Color.red,100);
-                Debug.Log("Origin: "+origin+" direction: "+objectProperties.activationDirections[i]);
 
                 if(Physics.Raycast(origin,objectProperties.activationDirections[i], out hit, 2))
                 {
@@ -104,14 +104,6 @@ public class ItemObject : MonoBehaviour
                         hit.collider.GetComponentInParent<ItemObject>().isActivated = true;
                         hit.collider.GetComponentInParent<ItemObject>().activation.isActivated = true;
                         hit.collider.GetComponentInParent<ItemObject>().activation.directionFrom = objectProperties.activationDirections[i];
-                    }
-                    if(hit.collider.GetComponentInParent<Spike>())
-                    {
-                        if(GetComponent<Bomb>())
-                        {
-                            
-                            Destroy(hit.collider.GetComponentInParent<Spike>().gameObject);
-                        }
                     }
                 }
             }

@@ -6,11 +6,12 @@ TagManager:
   tags:
   - tile
   - UI
+  - Objective
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Objective
   - Water
   - UI
   - itemobject

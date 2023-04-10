@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb68d3a8b5fe554dafbf4cdfd694780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCameras: []
+  cameras: []
 --- !u!114 &6432991917941605081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,3 +246,5 @@ MonoBehaviour:
   errorMessage: {fileID: 0}
   clip: {fileID: 8300000, guid: 96052f164dbfdc04c87e3caf0d17f3cb, type: 3}
   source: {fileID: 0}
+  trampolineObj: {fileID: 4436939470704443760, guid: fe095130790c7814bb6dab7e14eec860,
+    type: 3}
